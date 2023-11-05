@@ -80,7 +80,14 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 
 DATABASES = {
-    'default': dj_database_url.parse(env('DATABASE_URL'))
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'villadb',
+        'USER': 'villadb_user',
+        'PASSWORD': 'NVd2kkkpLmdtqdPcW6TaCLAqanfqF9hd',
+        'HOST': 'dpg-cl3tl02uuipc738mo020-a',
+        'PORT': '5432',
+    }
 }
 
 
