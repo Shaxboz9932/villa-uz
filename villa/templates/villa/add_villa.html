@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<br>
+
+<div class="page-heading header-text">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <span class="breadcrumb"><a href="#">Home</a> / Uy Qo'shish</span>
+          <h3>Uy Qo'shish</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="contact-page section">
+    <div class="container">
+        <div class="col-lg-6">
+            <form action="{% url 'add-villa' %}" method="post" enctype="multipart/form-data" id="contact-form">
+
+                {% csrf_token %}
+                <div class="row">
+
+                    {% for field in form %}
+                    <div class="col-lg-12">
+                        <fieldset>
+                            <label for="{{field.id_for_label}}">{{field.label}}</label>
+                            {{field}}
+                        </fieldset>
+                    </div>
+                    {% endfor %}
+
+
+                    <button type="submit">Qo'shish</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

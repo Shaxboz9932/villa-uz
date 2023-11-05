@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <div class="page-heading header-text">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <span class="breadcrumb"><a href="#">Home</a> / Kategoriya</span>
+          <h3>Kategoriya</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section properties">
+    <div class="container">
+
+      <div class="dropdown-center mx-auto p-2" style="width: 200px;">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Kategoriyalarni tanlang
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="{% url 'category' %}">Hammasi</a></li>
+          <li><a class="dropdown-item" href="{% url 'category' 'apartment' %}">Apartment</a></li>
+          <li><a class="dropdown-item" href="{% url 'category' 'villa-house' %}">Villa House</a></li>
+          <li><a class="dropdown-item" href="{% url 'category' 'penthouse' %}">Penthouse</a></li>
+        </ul>
+      </div>
+      <br>
+
+      <div class="row properties-box">
+        {% for villa in all_villa %}
+        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 adv">
+          <div class="item">
+            <a href="{{villa.get_absolute_url}}"><img src="{{villa.photo.url}}" alt=""></a>
+            <span class="category"><a href="{{villa.category.get_absolute_url}}">{{villa.category}}</a></span>
+            <h6>${{villa.price}}</h6>
+            <h4><a href="{{villa.get_absolute_url}}">{{villa.title}}</a></h4>
+            <ul>
+              <li>Xonalar: <span>{{villa.rooms}}</span></li>
+              <li>Vannaxona: <span>{{villa.bathrooms}}</span></li>
+              <li>Maydoni: <span>{{villa.area}}m<sup>2</sup></span></li>
+              <li>Qavat: <span>{{villa.floor}}</span></li>
+              <li>Parking: <span>{{villa.parking}} spots</span></li>
+            </ul>
+            <div class="main-button">
+              <a href="{{villa.get_absolute_url}}">Batafsil</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+<!--      row property-->
+      <div class="row">
+        {% if page_obj.has_other_pages %}
+        <div class="col-lg-12">
+          <ul class="pagination">
+            {% for p in paginator.page_range %}
+            {% if page_obj.number == p %}
+            <li><a href="#" class="is_active">{{p}}</a></li>
+            {% elif p >= page_obj.number|add:-1 and p <= page_obj.number|add:1 %}
+            <li><a href="?page={{p}}">{{p}}</a></li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
