@@ -13,19 +13,19 @@ import os, dj_database_url
 from pathlib import Path
 import environ
 
+env = environ.Env()
+
+environ.Env.read_env()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-env = environ.Env()
-environ.Env.read_env()
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
-
+SECRET_KEY = 'django-insecure-%!7ks@vdm&*5f^gtxa9@ln4(wnny^xt=xj1$o^15cv_1b2f&7b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -79,17 +79,16 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'villadb',
-        'USER': 'villadb_user',
-        'PASSWORD': 'NVd2kkkpLmdtqdPcW6TaCLAqanfqF9hd',
-        'HOST': 'dpg-cl3tl02uuipc738mo020-a',
-        'PORT': '5432',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite',
+#     }
+# }
 
+DATABASES = {
+    'default': dj_database_url.parse(env("DATABASE_URL"))
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
